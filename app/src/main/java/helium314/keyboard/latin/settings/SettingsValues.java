@@ -129,6 +129,7 @@ public class SettingsValues {
     public final boolean mAlphaAfterNumpadAndSpace;
     public final boolean mRemoveRedundantPopups;
     public final String mSpaceBarText;
+    public final boolean mTimestampToggleOnEnter;
     public final float mFontSizeMultiplier;
     public final float mFontSizeMultiplierEmoji;
     public final boolean mEmojiKeyFit;
@@ -302,6 +303,7 @@ public class SettingsValues {
         mAlphaAfterNumpadAndSpace = prefs.getBoolean(Settings.PREF_ABC_AFTER_NUMPAD_SPACE, Defaults.PREF_ABC_AFTER_NUMPAD_SPACE);
         mRemoveRedundantPopups = prefs.getBoolean(Settings.PREF_REMOVE_REDUNDANT_POPUPS, Defaults.PREF_REMOVE_REDUNDANT_POPUPS);
         mSpaceBarText = prefs.getString(Settings.PREF_SPACE_BAR_TEXT, Defaults.PREF_SPACE_BAR_TEXT);
+        mTimestampToggleOnEnter = prefs.getBoolean(Settings.PREF_TIMESTAMP_TOGGLE_ON_ENTER, Defaults.PREF_TIMESTAMP_TOGGLE_ON_ENTER);
         mFontSizeMultiplier = prefs.getFloat(Settings.PREF_FONT_SCALE, Defaults.PREF_FONT_SCALE);
         mFontSizeMultiplierEmoji = prefs.getFloat(Settings.PREF_EMOJI_FONT_SCALE, Defaults.PREF_EMOJI_FONT_SCALE);
         mEmojiKeyFit = prefs.getBoolean(Settings.PREF_EMOJI_KEY_FIT, Defaults.PREF_EMOJI_KEY_FIT);

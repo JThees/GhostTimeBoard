@@ -862,6 +862,19 @@ public final class InputLogic {
         if (event.getCodePoint() == Constants.CODE_ENTER) {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
             final int imeOptionsActionId = InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editorInfo);
+            
+            // Check if timestamp toggle is enabled and this is an action (not just newline)
+            final boolean isTimestampEnabled = Settings.getInstance().getCurrent().mTimestampToggleOnEnter;
+            final boolean isActionEvent = InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId 
+                || EditorInfo.IME_ACTION_NONE != imeOptionsActionId;
+            
+            if (isTimestampEnabled && isActionEvent) {
+                // Prepend timestamp before performing the action
+                final String timestamp = helium314.keyboard.latin.utils.TimestampKt.getEnhancedTimestamp(mLatinIME);
+                final String timestampWithSpace = timestamp + " ";
+                mConnection.commitText(timestampWithSpace, timestampWithSpace.length());
+            }
+            
             if (InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
                 // Either we have an actionLabel and we should performEditorAction with
                 // actionId regardless of its value.

@@ -210,6 +210,9 @@ fun createAdvancedSettings(context: Context) = listOf(
     Setting(context, Settings.PREF_TIMESTAMP_FORMAT, R.string.timestamp_format_title) { setting ->
         TextInputPreference(setting, Defaults.PREF_TIMESTAMP_FORMAT) { checkTimestampFormat(it) }
     },
+    Setting(context, Settings.PREF_TIMESTAMP_TOGGLE_ON_ENTER, R.string.timestamp_toggle_on_enter_title) {
+        SwitchPreference(it, Defaults.PREF_TIMESTAMP_TOGGLE_ON_ENTER)
+    },
     Setting(context, SettingsWithoutKey.DEBUG_SETTINGS, R.string.debug_settings_title) {
         Preference(
             name = it.title,

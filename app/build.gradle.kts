@@ -37,9 +37,9 @@ android {
             isJniDebuggable = false
         }
         debug {
-            // "normal" debug has minify for smaller APK to fit the GitHub 25 MB limit when zipped
-            // and for better performance in case users want to install a debug APK
-            isMinifyEnabled = true
+            // AGP 8.0+ does not allow isMinifyEnabled = true for debuggable builds.
+            // All code optimizations and obfuscation are disabled for debuggable builds anyway.
+            isMinifyEnabled = false
             isJniDebuggable = false
             applicationIdSuffix = ".debug"
         }
@@ -54,16 +54,14 @@ android {
             signingConfig = signingConfigs.getByName("debug")
             applicationIdSuffix = ".debug"
         }
-        base.archivesBaseName = "HeliBoard_" + defaultConfig.versionName
-        // got a little too big for GitHub after some dependency upgrades, so we remove the largest dictionary
-        androidComponents.onVariants { variant: ApplicationVariant ->
-            if (variant.buildType == "debug") {
-                variant.androidResources.ignoreAssetsPatterns = listOf("main_ro.dict")
-                variant.proguardFiles = emptyList()
-                //noinspection ProguardAndroidTxtUsage we intentionally use the "normal" file here
-                variant.proguardFiles.add(project.layout.buildDirectory.file(getDefaultProguardFile("proguard-android.txt").absolutePath))
-                variant.proguardFiles.add(project.layout.buildDirectory.file(project.buildFile.parent + "/proguard-rules.pro"))
-            }
+    }
+
+    // got a little too big for GitHub after some dependency upgrades, so we remove the largest dictionary
+    androidComponents.onVariants { variant ->
+        if (variant.buildType == "debug") {
+            variant.androidResources.ignoreAssetsPatterns.add("main_ro.dict")
+            // Note: variant.proguardFiles modification has changed in AGP 8.0+
+            // If needed, use variant.optimization.proguardFiles
         }
     }
 
@@ -112,6 +110,11 @@ android {
     lint {
         abortOnError = true
     }
+}
+
+// Fixed archivesBaseName replacement
+base {
+    archivesName.set("HeliBoard_${android.defaultConfig.versionName}")
 }
 
 dependencies {

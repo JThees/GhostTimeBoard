@@ -26,7 +26,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             tools:targetApi="p">
 
         <!-- Services -->
-        <service android:name="LatinIME"
+        <service android:name="helium314.keyboard.latin.LatinIME"
                 android:label="@string/english_ime_name"
                 android:permission="android.permission.BIND_INPUT_METHOD"
                 android:directBootAware="true"

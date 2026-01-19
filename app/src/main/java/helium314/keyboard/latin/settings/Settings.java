@@ -175,6 +175,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
     public static final String PREF_SPACE_BAR_TEXT = "space_bar_text";
     public static final String PREF_TIMESTAMP_FORMAT = "timestamp_format";
+    public static final String PREF_TIMESTAMP_TOGGLE_ON_ENTER = "timestamp_toggle_on_enter";
     public static final String PREF_TOOLBAR_MODE = "toolbar_mode";
     public static final String PREF_TOOLBAR_HIDING_GLOBAL = "toolbar_hiding_global";
 
@@ -333,6 +334,11 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public void toggleAlwaysIncognitoMode() {
         final boolean oldValue = mPrefs.getBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, Defaults.PREF_ALWAYS_INCOGNITO_MODE);
         mPrefs.edit().putBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, !oldValue).apply();
+    }
+
+    public void toggleTimestampOnEnter() {
+        final boolean oldValue = mPrefs.getBoolean(Settings.PREF_TIMESTAMP_TOGGLE_ON_ENTER, Defaults.PREF_TIMESTAMP_TOGGLE_ON_ENTER);
+        mPrefs.edit().putBoolean(Settings.PREF_TIMESTAMP_TOGGLE_ON_ENTER, !oldValue).apply();
     }
 
     public static ToolbarMode readToolbarMode(final SharedPreferences prefs) {
