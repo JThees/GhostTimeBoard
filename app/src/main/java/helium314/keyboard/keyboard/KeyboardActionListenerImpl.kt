@@ -107,6 +107,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
                 settings.toggleTimestampOnEnter()
                 return
             }
+            KeyCode.TIMESTAMP_INSERT -> {
+                // Insert timestamp + newline at cursor position
+                val timestamp = helium314.keyboard.latin.utils.getEnhancedTimestamp(latinIME)
+                latinIME.onTextInput(timestamp + "\n")
+                return
+            }
         }
         val mkv = keyboardSwitcher.mainKeyboardView
 

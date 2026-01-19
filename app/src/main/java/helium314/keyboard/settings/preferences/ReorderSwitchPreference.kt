@@ -35,9 +35,25 @@ fun ReorderSwitchPreference(setting: Setting, default: String) {
     if (showDialog) {
         val ctx = LocalContext.current
         val prefs = ctx.prefs()
-        val items = prefs.getString(setting.key, default)!!.split(Separators.ENTRY).map {
+        
+        // Get current items and ensure all available keys are included
+        val currentItems = prefs.getString(setting.key, default)!!.split(Separators.ENTRY).map {
             val both = it.split(Separators.KV)
             KeyAndState(both.first(), both.last().toBoolean())
+        }
+        
+        // Add any missing keys from default (for new toolbar keys)
+        val defaultItems = default.split(Separators.ENTRY).map {
+            val both = it.split(Separators.KV)
+            KeyAndState(both.first(), both.last().toBoolean())
+        }
+        
+        val items = currentItems.toMutableList().apply {
+            defaultItems.forEach { defaultItem ->
+                if (!any { it.name == defaultItem.name }) {
+                    add(defaultItem)
+                }
+            }
         }
         ReorderDialog(
             onConfirmed = { reorderedItems ->

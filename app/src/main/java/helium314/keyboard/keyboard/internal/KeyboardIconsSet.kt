@@ -155,6 +155,7 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end
                     ToolbarKey.SPLIT -> R.drawable.ic_ime_switcher
                     ToolbarKey.TIMESTAMP_TOGGLE -> R.drawable.ic_timestamp_toggle
+                    ToolbarKey.TIMESTAMP_INSERT -> R.drawable.ic_emoji_recents
                 })
             }
         } }
@@ -217,6 +218,7 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end
                     ToolbarKey.SPLIT -> R.drawable.ic_ime_switcher
                     ToolbarKey.TIMESTAMP_TOGGLE -> R.drawable.ic_timestamp_toggle
+                    ToolbarKey.TIMESTAMP_INSERT -> R.drawable.ic_emoji_recents
                 })
             }
         } }
@@ -279,6 +281,7 @@ class KeyboardIconsSet private constructor() {
                     ToolbarKey.PAGE_END -> R.drawable.ic_page_end_rounded
                     ToolbarKey.SPLIT -> R.drawable.ic_ime_switcher
                     ToolbarKey.TIMESTAMP_TOGGLE -> R.drawable.ic_timestamp_toggle_rounded
+                    ToolbarKey.TIMESTAMP_INSERT -> R.drawable.ic_emoji_recents
                 })
             }
         } }
