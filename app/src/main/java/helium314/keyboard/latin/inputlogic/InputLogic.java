@@ -863,16 +863,23 @@ public final class InputLogic {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
             final int imeOptionsActionId = InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editorInfo);
             
-            // Check if timestamp toggle is enabled and this is an action (not just newline)
+            // Check if timestamp toggle is enabled and this is a send action (not just newline)
             final boolean isTimestampEnabled = Settings.getInstance().getCurrent().mTimestampToggleOnEnter;
-            final boolean isActionEvent = InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId 
-                || EditorInfo.IME_ACTION_NONE != imeOptionsActionId;
+            final boolean isSendAction = InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId 
+                || (EditorInfo.IME_ACTION_NONE != imeOptionsActionId && EditorInfo.IME_ACTION_UNSPECIFIED != imeOptionsActionId);
             
-            if (isTimestampEnabled && isActionEvent) {
-                // Prepend timestamp before performing the action
+            if (isTimestampEnabled && isSendAction) {
+                // Move cursor to start, prepend timestamp, then return to end
                 final String timestamp = helium314.keyboard.latin.utils.TimestampKt.getEnhancedTimestamp(mLatinIME);
-                final String timestampWithSpace = timestamp + "\n";
-                mConnection.commitText(timestampWithSpace, timestampWithSpace.length());
+                final CharSequence currentText = mConnection.getTextBeforeCursor(10000, 0);
+                if (currentText != null && currentText.length() > 0) {
+                    // Move cursor to start
+                    mConnection.setSelection(0, 0);
+                    // Insert timestamp
+                    mConnection.commitText(timestamp + "\n", timestamp.length() + 1);
+                    // Move cursor to end
+                    mConnection.setSelection(currentText.length() + timestamp.length() + 1, currentText.length() + timestamp.length() + 1);
+                }
             }
             
             if (InputTypeUtils.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
