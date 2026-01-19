@@ -871,7 +871,7 @@ public final class InputLogic {
             if (isTimestampEnabled && isActionEvent) {
                 // Prepend timestamp before performing the action
                 final String timestamp = helium314.keyboard.latin.utils.TimestampKt.getEnhancedTimestamp(mLatinIME);
-                final String timestampWithSpace = timestamp + " ";
+                final String timestampWithSpace = timestamp + "\n";
                 mConnection.commitText(timestampWithSpace, timestampWithSpace.length());
             }
             
